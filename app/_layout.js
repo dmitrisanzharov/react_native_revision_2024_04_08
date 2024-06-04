@@ -1,7 +1,16 @@
 import { Stack } from "expo-router";
 
 const Layout = () => {
-	return <Stack />;
+	const screenOptionsConfig = {
+		headerStyle: {
+			backgroundColor: "lightblue",
+			headerTitleStyle: {
+				fontWeight: "bold",
+			},
+		},
+	};
+
+	return <Stack screenOptions={screenOptionsConfig} />;
 };
 
 export default Layout;
