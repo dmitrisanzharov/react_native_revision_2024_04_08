@@ -7,9 +7,19 @@ import {
 	ScrollView,
 	TextInput,
 	TouchableOpacity,
+	Image,
+	ActivityIndicator,
+	FlatList,
+	Button,
+	Linking,
 } from "react-native";
+import { useRouter, Link } from "expo-router";
 
 const Home = () => {
+	const router = useRouter();
+
+	const dataForList = ["fullTime", "partTime", "whenToStart"];
+
 	const [text, setText] = React.useState("blah");
 
 	function handlePress() {
@@ -32,6 +42,66 @@ const Home = () => {
 				}}
 			/>
 			{/* ALL OTHER STUFF */}
+			<Button title='about' onPress={()=> router.push('/AboutSomething')}/>
+			<Button title='my long link' onPress={()=> router.push('/mylonglink')}/>
+			<Button title='go to foo' onPress={()=> router.push('/fooFolder/foo')}/>
+			<Button title='go to dynamic' onPress={()=> router.push('/dynamic/' + '1')}/>
+			<Link href={'about'}> Visit about </Link>
+			<View
+				name="hrLine"
+				style={{
+					height: 1,
+					backgroundColor: "black",
+					alignSelf: "stretch",
+				}}
+			></View>
+			<Button
+				onPress={async () => {
+					console.log("new button was pressed");
+					const theURL = "http://google.com";
+					const checkIt = await Linking.canOpenURL(theURL);
+					console.log("checkIt: ", checkIt);
+
+					// Linking.openURL(theURL);
+				}}
+				title="yayaya press"
+				color="red"
+				accessibilityLabel="holySmokes"
+			/>
+			<View>
+				<FlatList
+					data={dataForList}
+					renderItem={(info) => {
+						// console.log('info', info);
+						return (
+							<Text>
+								{info.item}, and index is: {info.index}
+							</Text>
+						);
+					}}
+					horizontal
+					contentContainerStyle={{ columnGap: 10 }}
+					keyExtractor={(info) => {
+						// console.log('info in key', info)
+						return info;
+					}}
+				/>
+			</View>
+			<ActivityIndicator size="large" color="red" />
+			<Image
+				style={{ width: 25, height: 25 }}
+				source={{
+					uri: "https://cdn2.iconfinder.com/data/icons/artificial-intelligence-52/48/bl_1645_Search_seo_magnifier_earth_globe_internet-256.png",
+				}}
+			/>
+			<View
+				name="hrLine"
+				style={{
+					height: 1,
+					backgroundColor: "black",
+					alignSelf: "stretch",
+				}}
+			></View>
 			<TouchableOpacity onPress={handlePress}>
 				<Text>Blah</Text>
 			</TouchableOpacity>
